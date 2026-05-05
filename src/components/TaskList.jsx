@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, supabaseConfigured } from '../lib/supabase'
 import '../styles/TaskList.css'
 
 export default function TaskList() {
@@ -71,6 +71,18 @@ export default function TaskList() {
     } catch (error) {
       console.error('Erro ao atualizar tarefa:', error)
     }
+  }
+
+  if (!supabaseConfigured) {
+    return (
+      <div className="task-list">
+        <h1>📋 Minhas Tarefas</h1>
+        <p className="error">
+          Erro de configuração: as variáveis de ambiente do Supabase não estão
+          definidas.
+        </p>
+      </div>
+    )
   }
 
   return (
